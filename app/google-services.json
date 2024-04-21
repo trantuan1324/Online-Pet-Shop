@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "177060006342",
+    "project_id": "online-shop-b550f",
+    "storage_bucket": "online-shop-b550f.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:177060006342:android:46b67a667e869f7c964ac7",
+        "android_client_info": {
+          "package_name": "com.rabbyte.onlineshop"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCLzWG2z-SK055zxlZBW_260qCzdsfjTp8"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
