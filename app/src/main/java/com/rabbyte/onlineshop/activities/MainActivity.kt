@@ -2,15 +2,11 @@ package com.rabbyte.onlineshop.activities
 
 import android.os.Bundle
 import android.view.View
-import androidx.activity.enableEdgeToEdge
-import androidx.appcompat.app.AppCompatActivity
-import androidx.core.view.ViewCompat
-import androidx.core.view.WindowInsetsCompat
-import androidx.lifecycle.Observer
+import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import androidx.viewpager2.widget.CompositePageTransformer
 import androidx.viewpager2.widget.MarginPageTransformer
-import com.rabbyte.onlineshop.R
+import com.rabbyte.onlineshop.adapters.CategoryAdapter
 import com.rabbyte.onlineshop.adapters.SliderAdapter
 import com.rabbyte.onlineshop.databinding.ActivityMainBinding
 import com.rabbyte.onlineshop.model.SliderModel
@@ -27,12 +23,23 @@ class MainActivity : BaseActivity() {
         setContentView(binding.root)
 
         initBanners()
+        initCategory()
+    }
+
+    private fun initCategory() {
+        binding.progressBarCategory.visibility = View.VISIBLE
+        viewModel.category.observe(this) {
+            binding.viewCategory.layoutManager = LinearLayoutManager(this@MainActivity, LinearLayoutManager.HORIZONTAL, true)
+            binding.viewCategory.adapter = CategoryAdapter(it)
+            binding.progressBarCategory.visibility = View.GONE
+        }
+        viewModel.loadCategory()
     }
 
     private fun initBanners() {
         binding.progressBarBanner.visibility = View.VISIBLE
         viewModel.banners.observe(this) {
-            banners(it)
+            setBanners(it)
             binding.progressBarBanner.visibility = View.GONE
         }
         viewModel.loadBanner()
@@ -42,7 +49,7 @@ class MainActivity : BaseActivity() {
      * Hàm Banners thiết lập viewPagerSlider để hiển thị danh sách ảnh dạng Slider.
      * Nó cấu hình adapter, thuộc tính hiển thị, hiệu ứng chuyển trang, và thanh chấm thể hiện số trang.
      */
-    private fun banners(image: List<SliderModel>) {
+    private fun setBanners(image: List<SliderModel>) {
         binding.viewPagerSlider.apply {
             adapter = SliderAdapter(image, binding.viewPagerSlider)
             // Cho phép nội dung của các trang Slider hiển thị vùng đệm (padding) của viewPagerSlider.
