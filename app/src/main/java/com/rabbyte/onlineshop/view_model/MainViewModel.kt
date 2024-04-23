@@ -9,6 +9,7 @@ import com.google.firebase.database.DatabaseError
 import com.google.firebase.database.FirebaseDatabase
 import com.google.firebase.database.ValueEventListener
 import com.rabbyte.onlineshop.model.CategoryModel
+import com.rabbyte.onlineshop.model.ItemsModel
 import com.rabbyte.onlineshop.model.SliderModel
 
 class MainViewModel : ViewModel() {
@@ -16,14 +17,17 @@ class MainViewModel : ViewModel() {
     private val firebaseDatabase = FirebaseDatabase.getInstance()
 
     private val _banner = MutableLiveData<List<SliderModel>>()
-    private val _category = MutableLiveData<MutableList<CategoryModel>>()
+    private val _category = MutableLiveData<List<CategoryModel>>()
+    private val _bestSeller = MutableLiveData<List<ItemsModel>>()
 
     val banners: LiveData<List<SliderModel>> = _banner
-    val category: LiveData<MutableList<CategoryModel>> = _category
+    val category: LiveData<List<CategoryModel>> = _category
+    val bestSeller: LiveData<List<ItemsModel>> = _bestSeller
 
     companion object Constant {
-        const val LOAD_BANNER = "Get image add to banner"
-        const val LOAD_CATEGORY = "Get image add to category"
+        const val LOAD_BANNER = "Get info add to banner"
+        const val LOAD_CATEGORY = "Get info add to category"
+        const val LOAD_BESTSELLER = "Get info add to best seller"
     }
 
     /**
@@ -84,4 +88,26 @@ class MainViewModel : ViewModel() {
         })
     }
 
+    fun loadBestSeller() {
+        val ref = firebaseDatabase.getReference("Items")
+        ref.addValueEventListener(object : ValueEventListener {
+            override fun onDataChange(snapshot: DataSnapshot) {
+                val lists = mutableListOf<ItemsModel>()
+
+                for (childSnapShot in snapshot.children) {
+                    val list = childSnapShot.getValue(ItemsModel::class.java)
+
+                    if (list != null) {
+                        lists.add(list)
+                    }
+                }
+
+                _bestSeller.value = lists
+            }
+
+            override fun onCancelled(error: DatabaseError) {
+                Log.e(LOAD_BESTSELLER, error.message)
+            }
+        })
+    }
 }

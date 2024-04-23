@@ -9,7 +9,7 @@ import com.bumptech.glide.Glide
 import com.rabbyte.onlineshop.databinding.ViewholderCategoryBinding
 import com.rabbyte.onlineshop.model.CategoryModel
 
-class CategoryAdapter(val items: MutableList<CategoryModel>) : RecyclerView.Adapter<CategoryAdapter.CategoryViewHolder>() {
+class CategoryAdapter(private val items: List<CategoryModel>) : RecyclerView.Adapter<CategoryAdapter.CategoryViewHolder>() {
 
     private lateinit var context: Context
 
