@@ -2,10 +2,12 @@ package com.rabbyte.onlineshop.activities
 
 import android.os.Bundle
 import android.view.View
+import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import androidx.viewpager2.widget.CompositePageTransformer
 import androidx.viewpager2.widget.MarginPageTransformer
+import com.rabbyte.onlineshop.adapters.BestSellerAdapter
 import com.rabbyte.onlineshop.adapters.CategoryAdapter
 import com.rabbyte.onlineshop.adapters.SliderAdapter
 import com.rabbyte.onlineshop.databinding.ActivityMainBinding
@@ -24,12 +26,25 @@ class MainActivity : BaseActivity() {
 
         initBanners()
         initCategory()
+        initBestSeller()
+    }
+
+    private fun initBestSeller() {
+        binding.progressBarBestSeller.visibility = View.VISIBLE
+        viewModel.bestSeller.observe(this) {
+            binding.viewBestSeller.apply {
+                layoutManager = GridLayoutManager(this@MainActivity, 2)
+                adapter = BestSellerAdapter(it)
+            }
+            binding.progressBarBestSeller.visibility = View.GONE
+        }
+        viewModel.loadBestSeller()
     }
 
     private fun initCategory() {
         binding.progressBarCategory.visibility = View.VISIBLE
         viewModel.category.observe(this) {
-            binding.viewCategory.layoutManager = LinearLayoutManager(this@MainActivity, LinearLayoutManager.HORIZONTAL, true)
+            binding.viewCategory.layoutManager = LinearLayoutManager(this@MainActivity, LinearLayoutManager.HORIZONTAL, false)
             binding.viewCategory.adapter = CategoryAdapter(it)
             binding.progressBarCategory.visibility = View.GONE
         }
