@@ -43,6 +43,10 @@ class PicListAdapter(
             // cho cả item cũ được chọn (lastSelectedPos) và item mới được chọn (selectedPos).
             notifyItemChanged(lastSelectedPos)
             notifyItemChanged(selectedPos)
+
+            Glide.with(holder.itemView.context)
+                .load(items[position])
+                .into(picMain)
         }
 
         // Kiểm tra vị trí item hiện tại (position) có trùng với vị trí item đang được chọn (selectedPos) không.

@@ -4,7 +4,7 @@ import android.os.Parcelable
 import kotlinx.parcelize.Parcelize
 
 @Parcelize
-data class ItemsModel(
+class ItemsModel(
     var title: String = "",
     var description: String = "",
     var picUrl: ArrayList<String> = ArrayList(),
@@ -15,4 +15,8 @@ data class ItemsModel(
     var sellerName: String = "",
     var sellerTell: Int = 0,
     var sellerPic: String = ""
-) : Parcelable
+) : Parcelable {
+    fun getTotalPayment() : Double {
+        return Math.round(numberInCart * price).toDouble()
+    }
+}

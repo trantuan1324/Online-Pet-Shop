@@ -1,5 +1,6 @@
 package com.rabbyte.onlineshop.activities
 
+import android.content.Intent
 import android.os.Bundle
 import android.view.View
 import androidx.recyclerview.widget.GridLayoutManager
@@ -27,6 +28,11 @@ class MainActivity : BaseActivity() {
         initBanners()
         initCategory()
         initBestSeller()
+        setUpBottomNav()
+    }
+
+    private fun setUpBottomNav() {
+        binding.cartBtn.setOnClickListener { startActivity(Intent(this, CartActivity::class.java)) }
     }
 
     private fun initBestSeller() {

@@ -8,12 +8,12 @@ import com.rabbyte.onlineshop.R
 import com.rabbyte.onlineshop.databinding.ViewholderSizeBinding
 
 class SizeListAdapter(
-    val items: List<String>
+    private val items: List<String>
 ) : RecyclerView.Adapter<SizeListAdapter.SizeListViewHolder>() {
 
-    private lateinit var context: Context
-    private var lastSelectedPos = -1
     private var selectedPos = -1
+    private var lastSelectedPos = -1
+    private lateinit var context: Context
 
     inner class SizeListViewHolder(val binding: ViewholderSizeBinding) : RecyclerView.ViewHolder(binding.root)
 
