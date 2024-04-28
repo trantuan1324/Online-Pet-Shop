@@ -75,7 +75,7 @@ class DetailActivity : BaseActivity() {
 
             backBtn.setOnClickListener { finish() }
             binding.cartBtn.setOnClickListener {
-
+                startActivity(Intent(this@DetailActivity, CartActivity::class.java))
             }
 
             Glide.with(this@DetailActivity)
